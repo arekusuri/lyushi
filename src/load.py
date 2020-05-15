@@ -31,7 +31,7 @@ if __name__ == "__main__":
     a = load_data_file()
     # db = DataBase(config.DDL_FILE, config.DB_FILE)
     tangshi = TangShiParser(a)
-    tangshi.parse()
+    shi_arr = tangshi.parse()
     for l in tangshi.text:
         print l
         pass

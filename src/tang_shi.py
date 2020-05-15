@@ -47,12 +47,13 @@ class TangShiParser(object):
                     shi = self._parse_one(one_shi)
                     shi_arr.append(shi)
                     start = i
+        return shi_arr
 
     def _parse_one(self, text):
         shi = Shi()
         sentences = []
         for i in range(len(text)):
-            line = self.text[i].strip()
+            line = text[i].strip()
             if not line:
                 continue
             elif line[0].isdigit():
@@ -62,6 +63,8 @@ class TangShiParser(object):
                 shi.note += line
             else:
                 arr = line.split(encode_utf8('，'))
+                if len(arr) == 1:
+                    arr = line.split(encode_utf8('？'))[0:2]
                 sentences.extend(arr)
-        shi.set_sentences(len(sentences), sentences)
+        shi.set_sentences(sentences)
         return shi

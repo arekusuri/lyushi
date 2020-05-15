@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS info (
 CREATE TABLE IF NOT EXISTS half (
 	pid text PRIMARY KEY,
 	num integrer,
-	txt text
+	txt text,
+	sym text
 );
