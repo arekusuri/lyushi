@@ -33,4 +33,5 @@ if __name__ == "__main__":
     tangshi = TangShiParser(a)
     shi_arr = tangshi.parse()
     db.store(shi_arr)
+    print db.query("select * from half;")
     db.close()

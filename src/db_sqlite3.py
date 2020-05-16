@@ -31,9 +31,9 @@ class DbSqlite3(object):
                 sqls.append(s + ";")
         return sqls
 
-    def execute(self, sql):
+    def query(self, sql):
         t = self.cursor.execute(sql)
-        return t.fetchone()
+        return t.fetchall()
 
     def store(self, shi_arr):
         for shi in shi_arr:
@@ -41,8 +41,6 @@ class DbSqlite3(object):
             self.cursor.execute(shi.insert_sql, values_to_insert)
             for half in shi.get_halfs():
                 sql = half.insert_sql
-                print sql
-                print half.get_valus()
                 self.cursor.execute(sql, half.get_valus())
 
     def close(self):
