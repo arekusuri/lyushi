@@ -9,7 +9,7 @@ from tang_shi import TangShiParser
 
 
 import codecs
-from database import DataBase
+from db_sqlite3 import DbSqlite3
 import config
 
 
@@ -22,22 +22,15 @@ def load_data_file():
         with codecs.open(sys.argv[1], encoding="utf-8") as file:
             text = []
             for line in file:
-                text.append(encode_utf8(line))
+                text.append(line)
             return text
 
 
 
 if __name__ == "__main__":
     a = load_data_file()
-    # db = DataBase(config.DDL_FILE, config.DB_FILE)
+    db = DbSqlite3(config.DDL_FILE, config.DB_FILE)
     tangshi = TangShiParser(a)
     shi_arr = tangshi.parse()
-    for l in tangshi.text:
-        print l
-        pass
-    sql = "insert into poetry(id, poet, dynasty, title, j1, j2, j3, j4) values(1, 'li bai', 'tang', 'kk', '1', '2', '3', '4');"
-    # db.execute(sql)
-    sql = "select * from poetry;"
-    # a = db.execute(sql)
-    print sql
-    print a
+    db.store(shi_arr)
+    db.close()

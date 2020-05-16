@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from shi import Shi
+from poetry_vo import Shi
+from poetry_vo import Half
+
 from util import encode_utf8, count_char
 
 reload(sys)
@@ -51,20 +53,24 @@ class TangShiParser(object):
 
     def _parse_one(self, text):
         shi = Shi()
-        sentences = []
         for i in range(len(text)):
             line = text[i].strip()
             if not line:
                 continue
             elif line[0].isdigit():
-                n, poet, title = self._parse_title(line)
-                shi.set_num_author_title(n, poet, title)
+                pid, poet, title = self._parse_title(line)
+                shi.set_pid_author_title("T" + str(pid), poet, title)
             elif count_char(line) > 16:
-                shi.note += line
+                shi._tiba += line
             else:
-                arr = line.split(encode_utf8('，'))
-                if len(arr) == 1:
-                    arr = line.split(encode_utf8('？'))[0:2]
-                sentences.extend(arr)
-        shi.set_sentences(sentences)
+                arr = line.split(u'，')
+                if len(arr) == 2:
+                    head_half = Half(arr[0], u"，")
+                    tail_half = Half(arr[1], arr[1][-1:])
+                else:
+                    arr = line.split(u'？')[0:2]
+                    head_half = Half(arr[0], u"？")
+                    tail_half = Half(arr[1], arr[1][-1:])
+                shi.add_half(head_half)
+                shi.add_half(tail_half)
         return shi

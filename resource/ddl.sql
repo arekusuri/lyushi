@@ -1,14 +1,15 @@
-CREATE TABLE IF NOT EXISTS info (
+CREATE TABLE IF NOT EXISTS poetry (
 	pid text PRIMARY KEY,
-	poet text NOT NULL,
+	author text NOT NULL,
 	dynasty text NOT NULL,
 	title text,
+	tiba text,
 	category int
 );
 
 CREATE TABLE IF NOT EXISTS half (
-	pid text PRIMARY KEY,
+	pid text,
 	num integrer,
 	txt text,
-	sym text
+	flg text
 );
