@@ -42,6 +42,7 @@ class DbSqlite3(object):
             for half in shi.get_halfs():
                 sql = half.insert_sql
                 self.cursor.execute(sql, half.get_valus())
+        self.conn.commit()
 
     def close(self):
         self.cursor.close()

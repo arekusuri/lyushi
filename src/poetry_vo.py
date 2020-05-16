@@ -13,7 +13,7 @@ class Shi(object):
 
     def add_half(self, half):
         half._pid = self._pid
-        half._num = len(self._halfs)
+        half._num = len(self._halfs) + 1
         self._halfs.append(half)
 
     def set_pid_author_title(self, pid, author, title):

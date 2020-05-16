@@ -66,11 +66,11 @@ class TangShiParser(object):
                 arr = line.split(u'，')
                 if len(arr) == 2:
                     head_half = Half(arr[0], u"，")
-                    tail_half = Half(arr[1], arr[1][-1:])
+                    tail_half = Half(arr[1][:-1], arr[1][-1:])
                 else:
                     arr = line.split(u'？')[0:2]
                     head_half = Half(arr[0], u"？")
-                    tail_half = Half(arr[1], arr[1][-1:])
+                    tail_half = Half(arr[1][:-1], arr[1][-1:])
                 shi.add_half(head_half)
                 shi.add_half(tail_half)
         return shi
