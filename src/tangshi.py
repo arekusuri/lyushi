@@ -3,19 +3,33 @@ import sys
 
 from poetry_vo import Shi
 from poetry_vo import Half
-
 from util import encode_utf8, count_char
-
 reload(sys)
 sys.setdefaultencoding('utf-8')
+import codecs
+import config
 
 
 class TangShiParser(object):
-    def __init__(self, text):
-        self.text = text
+    def __init__(self):
+        self.text = self._load_data_file()
         self.data_start = self._find_start()
-        self.data_end = len(text)
+        self.data_end = len(self.text)
         pass
+
+    def parse(self):
+        data_start, data_end = self.data_start, self.data_end
+        start = data_start
+        shi_arr = []
+        for i in range(data_start, data_end):
+            line = self.text[i].strip()
+            if line != "" and line[0].isdigit():
+                if i != data_start:
+                    one_shi = self.text[start: i]
+                    shi = self._parse_one(one_shi)
+                    shi_arr.append(shi)
+                    start = i
+        return shi_arr
 
     def _find_start(self):
         """remove volume info for now"""
@@ -37,19 +51,12 @@ class TangShiParser(object):
         arr = line.split("：")
         return (n, arr[0][3:], arr[1])
 
-    def parse(self):
-        data_start, data_end = self.data_start, self.data_end
-        start = data_start
-        shi_arr = []
-        for i in range(data_start, data_end):
-            line = self.text[i].strip()
-            if line != "" and line[0].isdigit():
-                if i != data_start:
-                    one_shi = self.text[start: i]
-                    shi = self._parse_one(one_shi)
-                    shi_arr.append(shi)
-                    start = i
-        return shi_arr
+    def _load_data_file(self):
+        with codecs.open(config.TANGSHI_DATA_FILE, encoding="utf-8") as file:
+            text = []
+            for line in file:
+                text.append(line)
+            return text
 
     def _parse_one(self, text):
         shi = Shi()
@@ -74,3 +81,7 @@ class TangShiParser(object):
                 shi.add_half(head_half)
                 shi.add_half(tail_half)
         return shi
+
+
+
+

@@ -35,13 +35,19 @@ class DbSqlite3(object):
         t = self.cursor.execute(sql)
         return t.fetchall()
 
-    def store(self, shi_arr):
+    def persistent_shi(self, shi_arr):
         for shi in shi_arr:
             values_to_insert = shi.get_values()
             self.cursor.execute(shi.insert_sql, values_to_insert)
             for half in shi.get_halfs():
                 sql = half.insert_sql
                 self.cursor.execute(sql, half.get_valus())
+        self.conn.commit()
+
+    def persistent_pingshuiyun(self, ziyun_arr):
+        for ziyun in ziyun_arr:
+            values_to_insert = ziyun.get_values()
+            self.cursor.execute(ziyun.insert_sql, values_to_insert)
         self.conn.commit()
 
     def close(self):
