@@ -4,7 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from unittest import TestCase
 import unittest
-from util import count_char
+from load_data.util import count_char
 
 class Test(TestCase):
     def test_count_char(self):

@@ -1,10 +1,5 @@
 import sqlite3
 
-sql = """
-    insert into poetry(pid, author, dynasty, title, tiba, category)
-    values(?, ?, ?);
-"""
-
 class DbSqlite3(object):
     def __init__(self, ddl, db=None):
         self.conn = self._create_cnn(db)
