@@ -7,18 +7,18 @@ from util import encode_utf8, count_char
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs
-import config
 
 
-class TangShiParser(object):
-    def __init__(self):
+class TangShi(object):
+    def __init__(self, filename):
+        self.filename = filename
         self.text = self._load_data_file()
-        self.data_start = self._find_start()
-        self.data_end = len(self.text)
-        pass
+        self._data_start = self._find_start()
+        self._data_end = len(self.text)
+        self.shi_list = self._parse()
 
-    def parse(self):
-        data_start, data_end = self.data_start, self.data_end
+    def _parse(self):
+        data_start, data_end = self._data_start, self._data_end
         start = data_start
         shi_arr = []
         for i in range(data_start, data_end):
@@ -52,7 +52,7 @@ class TangShiParser(object):
         return (n, arr[0][3:], arr[1])
 
     def _load_data_file(self):
-        with codecs.open(config.TANGSHI_DATA_FILE, encoding="utf-8") as file:
+        with codecs.open(self.filename, encoding="utf-8") as file:
             text = []
             for line in file:
                 text.append(line)
