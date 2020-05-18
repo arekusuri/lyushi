@@ -38,11 +38,13 @@ class Half(object):
         insert into half(pid, txt, flg, num)
         values(?, ?, ?, ?);
     """
-    def __init__(self, txt, flg):
+    def __init__(self, txt, flg, num):
         self._txt = txt
         self._flg = flg
         self._num = 0
         self._pid = ""
+        self.pingze = ""
+        self.yunbu = ""
 
     def get_valus(self):
         return (self._pid, self._txt, self._flg, self._num)

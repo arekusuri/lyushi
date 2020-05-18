@@ -10,6 +10,7 @@ if __name__ == "__main__":
     shi_arr = tangshi.parse()
     db.persistent_shi(shi_arr)
     ziyun_list = load_pingshuiyun()
+    # todo calculate pingze
     db.persistent_pingshuiyun(ziyun_list)
     # print db.query("select * from half;")
     db.close()

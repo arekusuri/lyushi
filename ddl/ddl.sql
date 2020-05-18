@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS pingshuiyun;
+CREATE TABLE pingshuiyun (
+    hanzi text,
+    sheng integrer,
+    yunbu text,
+    pingz integrer
+)
+
 DROP TABLE IF EXISTS poetry;
 CREATE TABLE poetry (
 	pid text PRIMARY KEY,
@@ -13,13 +21,8 @@ CREATE TABLE half (
 	pid text,
 	num integrer,
 	txt text,
-	flg text
+	flg text,
+	pingze text,
+	yunbu text
 );
 
-DROP TABLE IF EXISTS pingshuiyun;
-CREATE TABLE pingshuiyun (
-    hanzi text,
-    sheng integrer,
-    yunbu text,
-    pingz integrer
-)
