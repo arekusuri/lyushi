@@ -4,7 +4,7 @@ CREATE TABLE pingshuiyun (
     sheng integrer,
     yunbu text,
     pingz integrer
-)
+);
 
 DROP TABLE IF EXISTS poetry;
 CREATE TABLE poetry (
@@ -19,9 +19,9 @@ CREATE TABLE poetry (
 DROP TABLE IF EXISTS half;
 CREATE TABLE half (
 	pid text,
-	num integrer,
 	txt text,
 	flg text,
+	num integrer,
 	pingze text,
 	yunbu text
 );

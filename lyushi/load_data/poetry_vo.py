@@ -35,10 +35,10 @@ class Shi(object):
 
 class Half(object):
     insert_sql = """
-        insert into half(pid, txt, flg, num)
-        values(?, ?, ?, ?);
+        insert into half(pid, txt, flg, num, pingze, yunbu)
+        values(?, ?, ?, ?, ?, ?);
     """
-    def __init__(self, txt, flg, num):
+    def __init__(self, txt, flg):
         self._txt = txt
         self._flg = flg
         self._num = 0
@@ -47,5 +47,5 @@ class Half(object):
         self.yunbu = ""
 
     def get_valus(self):
-        return (self._pid, self._txt, self._flg, self._num)
+        return (self._pid, self._txt, self._flg, self._num, self.pingze, self.yunbu)
 

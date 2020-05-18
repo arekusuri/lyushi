@@ -16,6 +16,7 @@ class DbSqlite3(object):
             text = file.readlines()
             sql_text = "".join(text)
             for sql in self._split_to_sqls(sql_text):
+                print sql
                 self.cursor.execute(sql)
 
     def _split_to_sqls(self, sql_text):
