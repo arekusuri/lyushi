@@ -1,7 +1,7 @@
 from pingshuiyun import Pingshuiyun
 from tangshi import TangShi
 from db_sqlite3 import DbSqlite3
-import config
+from config import config
 
 
 if __name__ == "__main__":

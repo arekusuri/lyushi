@@ -2,7 +2,7 @@
 import unittest
 from unittest import TestCase
 
-from load_data import config
+from config import config
 from load_data.pingshuiyun import Pingshuiyun
 from load_data.poetry_vo import Shi, Half
 
@@ -26,7 +26,13 @@ class TestPingshuiyun(TestCase):
         pz2 = pingze_info[u'间']
         self.assertEqual(pz2, [u'平'])
 
+    def test__parse_one(self):
+        # config.set_pingshuiyun_data_file("data/pingshuiyun-baidu.txt")
+        pingshuiyun = Pingshuiyun(config.PINGSHUIYUN_DATA_FILE)
+        pingshuiyun._parse_one("")
+
 
 if __name__ == '__main__':
     unittest.main()
+
 

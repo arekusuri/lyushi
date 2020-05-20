@@ -55,6 +55,7 @@ class TangShi(object):
         with codecs.open(self.filename, encoding="utf-8") as file:
             text = []
             for line in file:
+                line = line.strip()
                 text.append(line)
             return text
 

@@ -4,16 +4,15 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import codecs
-import config
 
 
 class Pingshuiyun(object):
     _tone_info = dict([(u'上平', 0), (u'下平', 1), (u'上声', 2), (u'去声', 3), (u'入声', 4)])
 
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self, pathfile):
+        self.pathfile = pathfile
         self.ziyun_list = self._load_pingshuiyun()
-        self._pingze_info, self._yunbu_info = self._build_pingze_yunbu_info()
+        self.pingze_info, self.yunbu_info = self._build_pingze_yunbu_info()
 
     def _build_pingze_yunbu_info(self):
         pingze_info = {} # {u'字': [u'平', u'仄'] .... }
@@ -35,7 +34,7 @@ class Pingshuiyun(object):
     def _query_pingze_for_half(self, half_text):
         ret = []
         for hanzi in half_text:
-            pingze_list = self._pingze_info.get(hanzi, [u'缺'])
+            pingze_list = self.pingze_info.get(hanzi, [u'缺'])
             if len(pingze_list) > 1:
                 ret.append(u'辨')
             else:
@@ -44,7 +43,7 @@ class Pingshuiyun(object):
 
     def _query_yunbu(self, half_text):
         hanzi = half_text[-1]
-        return self._yunbu_info.get(hanzi, [])
+        return self.yunbu_info.get(hanzi, [])
 
     def fulfill_pingze_yunbu(self, shi_list):
         for shi in shi_list:
@@ -56,7 +55,7 @@ class Pingshuiyun(object):
         return shi_list
 
     def _read_data_file(self):
-        with codecs.open(self.filename, encoding="utf-8") as file:
+        with codecs.open(self.pathfile, encoding="utf-8") as file:
             text = []
             for line in file:
                 line = line.strip()
@@ -69,9 +68,19 @@ class Pingshuiyun(object):
         yunbu = tone + ',' + yunbu
         sheng = self._tone_info[tone]
         ziyun_list = []
-        for hanzi in hanzi_str:
-            ziyun = Ziyun(hanzi, sheng, yunbu)
-            ziyun_list.append(ziyun)
+        hanzi_chrinfo = {}
+        count = 0
+        for i, hanzi in enumerate(hanzi_str):
+            if hanzi == u'[' or (hanzi != u']' and count > 0):
+                count += 1
+            elif hanzi == u']':
+                hanzi_chrinfo[hanzi] = count
+                ziyun = ziyun_list[-1]
+                ziyun.hanzi_descript = hanzi_str[i-count+1:i]
+                count = 0
+            else:
+                ziyun = Ziyun(hanzi, sheng, yunbu)
+                ziyun_list.append(ziyun)
         return ziyun_list
 
     def _load_pingshuiyun(self):
@@ -80,19 +89,26 @@ class Pingshuiyun(object):
         start = 0
         for i in range(1, len(text)):
             line = text[i]
-            if line[:2] in self._tone_info:
-                arr = text[start : i]
+            first2chrs = line[:2]
+            # if the current line starts with '上平', '下平'.. it is the end of current part
+            if first2chrs in self._tone_info:
+                arr = text[start : i] # slice the lines to make current part
                 ziyun_list.extend(self._parse_one(arr))
                 start = i
+            # if the current line is last line, need to call parse_one as well
+            if first2chrs in self._tone_info or i == len(text) - 1:
+                arr = text[start: i+1]  # slice the lines to make current part
+                ziyun_list.extend(self._parse_one(arr))
         return ziyun_list
 
 
 class Ziyun(object):
     insert_sql = """insert into pingshuiyun(hanzi, sheng, yunbu, pingz) values(?, ?, ?, ?);"""
-    def __init__(self, hanzi, sheng, yunbu):
+    def __init__(self, hanzi, sheng, yunbu, hanzi_descript = ""):
         self.hanzi = hanzi
         self.sheng = sheng
         self.yunbu = yunbu
+        self.hanzi_descript = hanzi_descript
 
     def get_values(self):
         pingz = 0 if self.sheng <= 1 else 1

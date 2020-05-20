@@ -1,4 +1,3 @@
-import re
 
 def encode_utf8(string):
     return string.encode('utf-8')
