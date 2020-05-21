@@ -17,7 +17,7 @@ class Pingshuiyun(object):
     def _build_pingze_yunbu_info(self):
         pingze_info = {} # {u'字': [u'平', u'仄'] .... }
         yunbu_info = {} # {u'字': [u'十六谏', u'十八啸']}
-        for ziyun in self.ziyun_list:
+        for i, ziyun in enumerate(self.ziyun_list):
             # 平仄
             pingze_list = pingze_info.get(ziyun.hanzi, [])
             pingze = u'平' if ziyun.sheng <= 1 else u'仄'
@@ -96,7 +96,7 @@ class Pingshuiyun(object):
                 ziyun_list.extend(self._parse_one(arr))
                 start = i
             # if the current line is last line, need to call parse_one as well
-            if first2chrs in self._tone_info or i == len(text) - 1:
+            if first2chrs in self._tone_info and i == len(text) - 1:
                 arr = text[start: i+1]  # slice the lines to make current part
                 ziyun_list.extend(self._parse_one(arr))
         return ziyun_list
