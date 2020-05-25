@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
-import sys
-
-from poetry_vo import Shi
-from poetry_vo import Half
-from util import encode_utf8, count_char
-reload(sys)
-sys.setdefaultencoding('utf-8')
 import codecs
+
+from load_data.poetry_vo import Shi, Half
 
 
 class TangShi(object):
@@ -38,7 +33,7 @@ class TangShi(object):
             line = self.text[count].strip('\n')
             if line == "":
                 count += 1
-            elif line.startswith(encode_utf8('卷')) and '0' <= line[-1] <= '9':
+            elif line.startswith(u'卷') and '0' <= line[-1] <= '9':
                 count += 1
             elif line[0] == ' ' and '0' <= line[-1] <= '9':
                 count += 1
@@ -68,7 +63,7 @@ class TangShi(object):
             elif line[0].isdigit():
                 pid, poet, title = self._parse_title(line)
                 shi.set_pid_author_title("T" + str(pid), poet, title)
-            elif count_char(line) > 16:
+            elif len(line) > 16:
                 shi._tiba += line
             else:
                 arr = line.split(u'，')

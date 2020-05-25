@@ -1,5 +1,6 @@
 import codecs
 
+
 def _load_data_file(pathfile):
     with codecs.open(pathfile, encoding="utf-8") as file:
         text = []
@@ -8,11 +9,10 @@ def _load_data_file(pathfile):
             text.append(line)
         return text
 
-def get_hanzi_list(pathfile, start_line):
+
+def get_hanzi_list(pathfile):
     arr = _load_data_file(pathfile)
     text = "".join(arr)
-    for k in text:
-        print k
     hanzi_set = set(list(text))
     hanzi_list = []
     for hanzi in hanzi_set:
