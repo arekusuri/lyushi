@@ -3,8 +3,8 @@ import unittest
 from unittest import TestCase
 
 from config import config
-from load_data.pingshuiyun import Pingshuiyun
-from load_data.poetry_vo import Shi, Half
+from etl.pingshuiyun import Pingshuiyun
+from etl.poetry_vo import Shi, Half
 
 
 class TestPingshuiyun(TestCase):

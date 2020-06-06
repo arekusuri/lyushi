@@ -1,7 +1,7 @@
 from config import config
-from load_data.db_sqlite3 import DbSqlite3
-from load_data.pingshuiyun import Pingshuiyun
-from load_data.tangshi import TangShi
+from db_sqlite3 import DbSqlite3
+from etl.pingshuiyun import Pingshuiyun
+from etl.tangshi import TangShi
 
 if __name__ == "__main__":
     db = DbSqlite3(config.DDL_FILE, config.DB_FILE)

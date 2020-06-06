@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS pingshuiyun;
 CREATE TABLE pingshuiyun (
     hanzi text,
-    sheng integrer,
+    sheng integer,
     yunbu text,
     pingz integrer
 );
@@ -21,7 +21,8 @@ CREATE TABLE half (
 	pid text,
 	txt text,
 	flg text,
-	num integrer,
+	order_num integer,
+	zishu integer,
 	pingze text,
 	yunbu text
 );

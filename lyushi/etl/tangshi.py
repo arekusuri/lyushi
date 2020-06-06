@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import codecs
 
-from load_data.poetry_vo import Shi, Half
+from etl.poetry_vo import Shi, Half
 
 
 class TangShi(object):

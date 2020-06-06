@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from config import config
 from data_miss_report.load_hanzi import get_hanzi_list
-from load_data.pingshuiyun import Pingshuiyun
+from etl.pingshuiyun import Pingshuiyun
 
 if __name__ == "__main__":
     config.set_pingshuiyun_data_file("/data/pingshuiyun-baidu.txt")

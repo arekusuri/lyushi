@@ -13,7 +13,7 @@ class Shi(object):
 
     def add_half(self, half):
         half._pid = self._pid
-        half._num = len(self._halfs) + 1
+        half.order_num = len(self._halfs) + 1
         self._halfs.append(half)
 
     def set_pid_author_title(self, pid, author, title):
@@ -35,17 +35,18 @@ class Shi(object):
 
 class Half(object):
     insert_sql = """
-        insert into half(pid, txt, flg, num, pingze, yunbu)
-        values(?, ?, ?, ?, ?, ?);
+        insert into half(pid, txt, flg, order_num, zishu, pingze, yunbu)
+        values(?, ?, ?, ?, ?, ?, ?);
     """
     def __init__(self, txt, flg):
         self._txt = txt
         self._flg = flg
-        self._num = 0
+        self.order_num = 0
+        self.zishu = len(txt)
         self._pid = ""
         self.pingze = ""
         self.yunbu = ""
 
     def get_valus(self):
-        return (self._pid, self._txt, self._flg, self._num, self.pingze, self.yunbu)
+        return (self._pid, self._txt, self._flg, self.order_num, self.zishu, self.pingze, self.yunbu)
 
