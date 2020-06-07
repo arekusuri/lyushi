@@ -66,14 +66,16 @@ class TangShi(object):
             elif len(line) > 16:
                 shi._tiba += line
             else:
+                end_symbol = line[-1]
+                line = line[:-1]
                 arr = line.split(u'，')
                 if len(arr) == 2:
                     head_half = Half(arr[0], u"，")
-                    tail_half = Half(arr[1][:-1], arr[1][-1:])
+                    tail_half = Half(arr[1], end_symbol)
                 else:
                     arr = line.split(u'？')[0:2]
                     head_half = Half(arr[0], u"？")
-                    tail_half = Half(arr[1][:-1], arr[1][-1:])
+                    tail_half = Half(arr[1], end_symbol)
                 shi.add_half(head_half)
                 shi.add_half(tail_half)
         return shi
