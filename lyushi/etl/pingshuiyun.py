@@ -46,7 +46,9 @@ class Pingshuiyun(object):
             for half in shi.get_halfs():
                 pingze = self._query_pingze_for_half(half._txt)
                 yunbu = self._query_yunbu(half._txt)
-                half.pingze = ''.join(pingze)
+                half.pingze_auto = ''.join(pingze)
+                if u'辨' not in half.pingze_auto:
+                    half.pingze = half.pingze_auto
                 half.yunbu = '; '.join(yunbu)
         return shi_list
 

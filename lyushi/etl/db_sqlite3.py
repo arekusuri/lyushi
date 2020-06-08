@@ -45,6 +45,14 @@ class DbSqlite3(object):
             self.cursor.execute(ziyun.insert_sql, values_to_insert)
         self.conn.commit()
 
+    def persistent_proof(self, pingze_list):
+        sql = "update half set pingze=? where pid=? and order_num=?"
+        for pid, order_number, pingze in pingze_list:
+            self.cursor.execute(sql, (pingze, pid, int(order_number)))
+        self.conn.commit()
+
+
     def close(self):
+        self.conn.commit()
         self.cursor.close()
         self.conn.close()

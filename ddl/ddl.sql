@@ -23,6 +23,7 @@ CREATE TABLE half (
 	flg text,
 	order_num integer,
 	zishu integer,
+	pingze_auto text,
 	pingze text,
 	yunbu text
 );

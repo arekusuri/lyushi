@@ -15,7 +15,7 @@ class TestPingshuiyun(TestCase):
         shi.add_half(half)
         pingshuiyun.fulfill_pingze_yunbu([shi])
         half = shi.get_halfs()[0]
-        pz = half.pingze
+        pz = half.pingze_auto
         self.assertEqual(pz, u'平仄平辨仄')
 
     def test__build_pingze_yunbu_info(self):
@@ -33,7 +33,7 @@ class TestPingshuiyun(TestCase):
         shi.add_half(half)
         pingshuiyun.fulfill_pingze_yunbu([shi])
         half = shi.get_halfs()[0]
-        pz = half.pingze
+        pz = half.pingze_auto
         self.assertEqual(pz, u'辨')
 
     def test__parse_one(self):
